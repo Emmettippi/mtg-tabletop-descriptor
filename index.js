@@ -6,35 +6,35 @@ const fetch = require("node-fetch");
 const CARD_MAP = {};
 const dataObjs = [];
 
-const cardMapIsReady = () => {
-    let isReady = false;
-    let firstTimePass = true;
-    for (const key in CARD_MAP) {
-        if (firstTimePass) {
-            isReady = true;
-            firstTimePass = false;
-        }
-        if (key) {
-            isReady = isReady && CARD_MAP[key];
-        }
-    }
-    return isReady;
-}
+// const cardMapIsReady = () => {
+//     let isReady = false;
+//     let firstTimePass = true;
+//     for (const key in CARD_MAP) {
+//         if (firstTimePass) {
+//             isReady = true;
+//             firstTimePass = false;
+//         }
+//         if (key) {
+//             isReady = isReady && CARD_MAP[key];
+//         }
+//     }
+//     return isReady;
+// }
 
-const cardMapIsFull200 = () => {
-    let isAll200 = false;
-    let firstTimePass = true;
-    for (const key in CARD_MAP) {
-        if (firstTimePass) {
-            isAll200 = true;
-            firstTimePass = false;
-        }
-        if (key) {
-            isAll200 = isAll200 && CARD_MAP[key] == 2;
-        }
-    }
-    return isAll200;
-}
+// const cardMapIsFull200 = () => {
+//     let isAll200 = false;
+//     let firstTimePass = true;
+//     for (const key in CARD_MAP) {
+//         if (firstTimePass) {
+//             isAll200 = true;
+//             firstTimePass = false;
+//         }
+//         if (key) {
+//             isAll200 = isAll200 && CARD_MAP[key] == 2;
+//         }
+//     }
+//     return isAll200;
+// }
 
 const isInArray = (array, text) => {
     let found = false;
@@ -124,6 +124,24 @@ const recursiveCall = (i) => {
     }
 }
 
+const backEndCall = (i) => {
+    if (dataObjs && (i || i === 0) && i < dataObjs.length) {
+        const url = 'http://localhost:8080/api/mtg/save-tabletop-json';
+        const params = {
+            body: JSON.stringify(dataObjs[i])
+            , method: 'POST'
+            , headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            }
+        };
+        fetch(url, params)
+            .then(data => data.json())
+            .then(res => {
+                console.log('>> CALL ' + i + ' DONE!!');
+            });
+    }
+}
+
 const directoryPath = PATH.join(__dirname, 'input');
 //passsing directoryPath and callback function
 const files = FS.readdirSync(directoryPath);
@@ -154,38 +172,41 @@ for (let a = 0; a < files.length; a++) {
             }
         }
     }
+    setTimeout(() => {
+        backEndCall(a);
+    }, (timeout + 3000));
 }
 
-setTimeout(() => {
-    if (cardMapIsReady()) {
-        if (cardMapIsFull200()) {
-            console.log('>> DONE!');
-            recursiveCall(0);
-            // for (const dataObj of dataObjs) {
-            //     console.log('\n');
-            //     for (const objectState of dataObj['ObjectStates']) {
-            //         console.log('\n');
-            //         if (objectState['CardID']) {
-            //             console.log(objectState['Nickname']);
-            //             console.log(objectState['Description']);
-            //         } else {
-            //             for (const card of objectState['ContainedObjects']) {
-            //                 console.log('\n');
-            //                 console.log(card['Nickname']);
-            //                 console.log(card['Description']);
-            //             }
-            //         }
-            //     }
-            // }
-        } else {
-            console.log('>> ERRORS!');
-            for (const key in CARD_MAP) {
-                if (key && CARD_MAP[key] === 1) {
-                    console.log(key);
-                }
-            }
-        }
-    } else {
-        console.log('>> Not done yet');
-    }
-}, (timeout + 10000));
+// setTimeout(() => {
+//     if (cardMapIsReady()) {
+//         if (cardMapIsFull200()) {
+//             console.log('>> DONE!');
+//             recursiveCall(0);
+//             // for (const dataObj of dataObjs) {
+//             //     console.log('\n');
+//             //     for (const objectState of dataObj['ObjectStates']) {
+//             //         console.log('\n');
+//             //         if (objectState['CardID']) {
+//             //             console.log(objectState['Nickname']);
+//             //             console.log(objectState['Description']);
+//             //         } else {
+//             //             for (const card of objectState['ContainedObjects']) {
+//             //                 console.log('\n');
+//             //                 console.log(card['Nickname']);
+//             //                 console.log(card['Description']);
+//             //             }
+//             //         }
+//             //     }
+//             // }
+//         } else {
+//             console.log('>> ERRORS!');
+//             for (const key in CARD_MAP) {
+//                 if (key && CARD_MAP[key] === 1) {
+//                     console.log(key);
+//                 }
+//             }
+//         }
+//     } else {
+//         console.log('>> Not done yet');
+//     }
+// }, (timeout + 10000));

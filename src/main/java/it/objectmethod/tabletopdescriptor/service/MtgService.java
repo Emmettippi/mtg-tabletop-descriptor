@@ -18,10 +18,10 @@ public class MtgService {
 
 	public MtgContainer saveTableTopFile(MtgContainer obj) throws JsonProcessingException, IOException {
 		File dirFile = new File("./output");
-		File f = new File("./output/" + obj.getFileName());
 		if (dirFile.isDirectory()) {
 			dirFile.mkdirs();
 		}
+		File f = new File("./output/" + obj.getFileName());
 		if (f.createNewFile()) {
 			FileWriter fw = new FileWriter(f);
 			String jsonMtgObj = mapper.writeValueAsString(obj);
