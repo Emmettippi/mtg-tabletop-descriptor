@@ -1,4 +1,4 @@
-package it.objectmethod.tatami.utils;
+package it.objectmethod.tabletopdescriptor.utils;
 
 import java.util.ArrayList;
 import java.util.List;

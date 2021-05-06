@@ -1,4 +1,4 @@
-package it.objectmethod.tatami.dto;
+package it.objectmethod.tabletopdescriptor.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -1,4 +1,4 @@
-package it.objectmethod.tatami.controller;
+package it.objectmethod.tabletopdescriptor.controller;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import it.objectmethod.tatami.dto.MtgContainer;
-import it.objectmethod.tatami.service.MtgService;
+import it.objectmethod.tabletopdescriptor.dto.MtgContainer;
+import it.objectmethod.tabletopdescriptor.service.MtgService;
 
 @RestController
 @RequestMapping("/api/mtg")

@@ -1,4 +1,4 @@
-package it.objectmethod.tatami.service;
+package it.objectmethod.tabletopdescriptor.service;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.objectmethod.tatami.dto.MtgContainer;
+import it.objectmethod.tabletopdescriptor.dto.MtgContainer;
 
 @Service
 public class MtgService {

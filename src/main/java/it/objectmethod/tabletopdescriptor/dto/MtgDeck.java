@@ -1,4 +1,4 @@
-package it.objectmethod.tatami.dto;
+package it.objectmethod.tabletopdescriptor.dto;
 
 import java.util.List;
 import java.util.Map;
